@@ -52,3 +52,61 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('h1').style.color = '#e74c3c';
     setupCounter();
 });
+// To-Do List functionality
+function setupTodoList() {
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTask');
+    const taskList = document.getElementById('taskList');
+    
+    addTaskBtn.addEventListener('click', function() {
+        addNewTask();
+    });
+    
+    // Allow pressing Enter to add a task
+    taskInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            addNewTask();
+        }
+    });
+    
+    function addNewTask() {
+        const taskText = taskInput.value.trim();
+        if (taskText !== '') {
+            // Create new list item
+            const li = document.createElement('li');
+            
+            // Create task text span
+            const taskSpan = document.createElement('span');
+            taskSpan.textContent = taskText;
+            
+            // Create delete button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.className = 'delete-task';
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+            });
+            
+            // Add elements to list item
+            li.appendChild(taskSpan);
+            li.appendChild(deleteBtn);
+            
+            // Add list item to task list
+            taskList.appendChild(li);
+            
+            // Clear the input
+            taskInput.value = '';
+            
+            // Focus back on the input
+            taskInput.focus();
+        }
+    }
+}
+
+// Update your DOMContentLoaded event to include the todo list setup
+document.addEventListener('DOMContentLoaded', function() {
+    console.log("Website loaded!");
+    document.querySelector('h1').style.color = '#e74c3c';
+    setupCounter();
+    setupTodoList();
+});

@@ -43,11 +43,47 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
+                }
+                button:hover {
+                    background-color: #2980b9;
+                }
+                .todo-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
         }
-        button:hover {
-            background-color: #2980b9;
+        .todo-input {
+            display: flex;
+            margin-bottom: 10px;
         }
-                
+        #taskInput {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 3px;
+        }
+        #taskList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #taskList li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            margin-bottom: 5px;
+            background-color: white;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .delete-task {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 8px;
+            cursor: pointer;
+        }   
     </style>
 </head>
 <body>
@@ -68,5 +104,15 @@
         <button id="decrement">-</button>
         <button id="reset">Reset</button>
    </div>
+   <div class="todo-section">
+    <h2>My To-Do List</h2>
+    <div class="todo-input">
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button id="addTask">Add Task</button>
+    </div>
+    <ul id="taskList">
+        <!-- Tasks will appear here -->
+    </ul>
+</div>
 </body>
 </html>
