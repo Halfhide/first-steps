@@ -84,7 +84,136 @@
             padding: 2px 8px;
             cursor: pointer;
         }   
-    </style>
+        .task-checkbox {
+    margin-right: 10px;
+}
+
+    .task-text {
+        flex-grow: 1;
+    }
+
+    #taskList li {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        margin-bottom: 5px;
+        background-color: white;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .weather-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+}
+
+.weather-controls {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#cityInput {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+}
+
+.weather-result {
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    min-height: 50px;
+    display: none; /* Hidden until we have data */
+}
+
+.weather-data {
+    display: flex;
+    align-items: center;
+}
+
+.weather-temp {
+    font-size: 32px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+.weather-details {
+    line-height: 1.5;
+}
+
+.weather-loading {
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+.weather-error {
+    color: #e74c3c;
+    font-weight: bold;
+}
+.users-section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+}
+
+.users-list {
+    margin-top: 15px;
+}
+
+.user-card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.user-card h3 {
+    margin-top: 0;
+    color: #2980b9;
+}
+
+.user-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.user-posts {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.post-item {
+    background-color: #f8f9fa;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 3px;
+}
+
+.post-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.show-posts-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.show-posts-btn:hover {
+    background-color: #2980b9;
+}
+</style>
 </head>
 <body>
     <div class="container">
@@ -113,6 +242,23 @@
     <ul id="taskList">
         <!-- Tasks will appear here -->
     </ul>
+    <div class="weather-section">
+        <h2>Weather Widget</h2>
+        <div class="weather-controls">
+            <input type="text" id="cityInput" placeholder="Enter city name">
+            <button id="getWeather">Get Weather</button>
+        </div>
+        <div id="weatherResult" class="weather-result">
+            <!-- Weather data will appear here -->
+        </div>
+    </div>
+    <div class="users-section">
+        <h2>User Directory</h2>
+        <button id="loadUsers">Load Users</button>
+        <div id="usersList" class="users-list">
+            <!-- Users will appear here -->
+        </div>
+    </div>
 </div>
 </body>
 </html>
