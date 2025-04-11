@@ -2,7 +2,7 @@
  * Web Application with multiple features:
  * - Message display with color change
  * - Counter with increment/decrement
- * - Todo list with localStorage persistence
+ * - Todo list with Firestore persistence
  * - Weather information retrieval from API
  * - User directory using JSONPlaceholder API
  * - Task tracker with time tracking functionality
@@ -61,18 +61,49 @@ function setupTodoList() {
     // Track tasks in an array
     let tasks = [];
     
-    // Function to save tasks to localStorage
+    // Function to save tasks to Firestore
     function saveTasks() {
-        localStorage.setItem('todoTasks', JSON.stringify(tasks));
+        // Use Firebase Firestore to save tasks
+        const db = firebase.firestore();
+        db.collection("tasks").doc("user1").set({
+            tasks: tasks
+        })
+        .then(() => {
+            console.log("Tasks saved to Firestore");
+        })
+        .catch((error) => {
+            console.error("Error saving tasks: ", error);
+            // Fallback to localStorage
+            localStorage.setItem('todoTasks', JSON.stringify(tasks));
+        });
     }
     
-    // Function to load tasks from localStorage
+    // Function to load tasks from Firestore
     function loadTasks() {
-        const savedTasks = localStorage.getItem('todoTasks');
-        if (savedTasks) {
-            tasks = JSON.parse(savedTasks);
-            renderTasks();
-        }
+        const db = firebase.firestore();
+        db.collection("tasks").doc("user1").get()
+            .then((doc) => {
+                if (doc.exists && doc.data().tasks) {
+                    tasks = doc.data().tasks;
+                    renderTasks();
+                } else {
+                    // Fallback to localStorage if no data in Firestore
+                    const savedTasks = localStorage.getItem('todoTasks');
+                    if (savedTasks) {
+                        tasks = JSON.parse(savedTasks);
+                        renderTasks();
+                    }
+                }
+            })
+            .catch((error) => {
+                console.error("Error loading tasks: ", error);
+                // Fallback to localStorage
+                const savedTasks = localStorage.getItem('todoTasks');
+                if (savedTasks) {
+                    tasks = JSON.parse(savedTasks);
+                    renderTasks();
+                }
+            });
     }
     
     // Function to render tasks to the DOM
@@ -168,7 +199,7 @@ function setupTodoList() {
             // Add to our array
             tasks.push(task);
             
-            // Save to localStorage
+            // Save to Firestore
             saveTasks();
             
             // Add to DOM
@@ -189,7 +220,7 @@ function setupTodoList() {
             if (tasks.length > 0 && confirm('Are you sure you want to delete all tasks?')) {
                 // Clear the array
                 tasks = [];
-                // Save empty array to localStorage
+                // Save empty array to Firestore
                 saveTasks();
                 // Clear the DOM
                 taskList.innerHTML = '';
@@ -488,25 +519,75 @@ function setupTaskTracker() {
       }, 1000);
     }
     
-    // Function to save tasks to localStorage
+    // Function to save tasks to Firestore
     function saveTasks() {
-      localStorage.setItem('timeTrackerTasks', JSON.stringify(tasks));
+      const db = firebase.firestore();
+      db.collection("timedTasks").doc("user1").set({
+        tasks: tasks
+      })
+      .then(() => {
+        console.log("Timed tasks saved to Firestore");
+      })
+      .catch((error) => {
+        console.error("Error saving timed tasks: ", error);
+        // Fallback to localStorage
+        localStorage.setItem('timeTrackerTasks', JSON.stringify(tasks));
+      });
     }
     
-    // Function to load tasks from localStorage
+    // Function to load tasks from Firestore
     function loadTasks() {
-      const savedTasks = localStorage.getItem('timeTrackerTasks');
-      tasks = savedTasks ? JSON.parse(savedTasks) : [];
-      
-      // Make sure running tasks are properly restarted
-      const now = Date.now();
-      tasks.forEach(task => {
-        if (task.isRunning) {
-          task.startTime = now;
-        }
-      });
-      
-      renderTasks();
+      const db = firebase.firestore();
+      db.collection("timedTasks").doc("user1").get()
+        .then((doc) => {
+          if (doc.exists && doc.data().tasks) {
+            tasks = doc.data().tasks;
+            
+            // Make sure running tasks are properly restarted
+            const now = Date.now();
+            tasks.forEach(task => {
+              if (task.isRunning) {
+                task.startTime = now;
+              }
+            });
+            
+            renderTasks();
+          } else {
+            // Fallback to localStorage
+            const savedTasks = localStorage.getItem('timeTrackerTasks');
+            if (savedTasks) {
+              tasks = JSON.parse(savedTasks);
+              
+              // Make sure running tasks are properly restarted
+              const now = Date.now();
+              tasks.forEach(task => {
+                if (task.isRunning) {
+                  task.startTime = now;
+                }
+              });
+              
+              renderTasks();
+            }
+          }
+        })
+        .catch((error) => {
+          console.error("Error loading timed tasks: ", error);
+          // Fallback to localStorage
+          const savedTasks = localStorage.getItem('timeTrackerTasks');
+          if (savedTasks) {
+            tasks = JSON.parse(savedTasks);
+            
+            // Make sure running tasks are properly restarted
+            const now = Date.now();
+            tasks.forEach(task => {
+              if (task.isRunning) {
+                task.startTime = now;
+              }
+            });
+            
+            renderTasks();
+          }
+        });
     }
     
     // Function to format time as HH:MM:SS
@@ -693,7 +774,7 @@ function setupTaskTracker() {
       // Add to array
       tasks.push(task);
       
-      // Save to localStorage
+      // Save to Firestore
       saveTasks();
       
       // Render tasks
