@@ -1,9 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Add in your HTML head section -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js"></script>
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+
+<!-- Firebase Firestore -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+<!-- Initialize Firebase -->
+<script>
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDc_8jRClEZC9tiVMITcTDpGFZwWEtMeD8",
+    authDomain: "first-steps-a3e0d.firebaseapp.com",
+    projectId: "first-steps-a3e0d",
+    storageBucket: "first-steps-a3e0d.appspot.com",
+    messagingSenderId: "993513156322",
+    appId: "1:993513156322:web:260755ca8de902d76838bb",
+    measurementId: "G-8ZEMW7C5NM"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
     <title>My First Website</title>
     <style>
         body {
