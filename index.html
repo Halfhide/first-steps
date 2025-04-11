@@ -5,7 +5,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #fbff00;
+            background-color: #ffa600;
             margin: 0;
             padding: 20px;
         }
@@ -213,6 +213,114 @@
 .show-posts-btn:hover {
     background-color: #2980b9;
 }
+.task-manager {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.task-input {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#taskInput {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.task-views {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.view-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.view-button.active {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.task-list {
+  margin-bottom: 20px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.task-text {
+  flex-grow: 1;
+  margin: 0 10px;
+}
+
+.task-time {
+  font-family: monospace;
+  font-size: 16px;
+  margin-right: 10px;
+  min-width: 70px;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.timer-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.start-button {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.pause-button {
+  background-color: #f39c12;
+  color: white;
+}
+
+.stop-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.restore-button {
+  background-color: #f500c4;
+  color: white;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #7f8c8d;
+}
+
+.hidden {
+  display: none;
+}
 </style>
 </head>
 <body>
@@ -233,6 +341,30 @@
         <button id="decrement">-</button>
         <button id="reset">Reset</button>
    </div>
+   <br>
+   <div class="task-manager">
+    <h2>Task Time Tracker</h2>
+    
+    <div class="task-input">
+      <input type="text" id="taskInput" placeholder="Enter a new task">
+      <button id="addTask">Add Task</button>
+    </div>
+    
+    <div class="task-views">
+      <button id="showActive" class="view-button active">Active Tasks</button>
+      <button id="showArchived" class="view-button">Archived Tasks</button>
+    </div>
+    
+    <div id="activeTaskList" class="task-list">
+      <!-- Active tasks will appear here -->
+    </div>
+    
+    <div id="archivedTaskList" class="task-list hidden">
+      <!-- Archived tasks will appear here -->
+    </div>
+    
+    <button id="clearTasks">Clear All Tasks</button>
+  </div>
    <div class="todo-section">
     <h2>My To-Do List</h2>
     <div class="todo-input">
