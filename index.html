@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Firebase App (the core Firebase SDK) -->
+<!-- In your HTML head or before the closing body tag -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-
-<!-- Firebase Firestore -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-<!-- Initialize Firebase -->
 <script>
   // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -23,6 +19,8 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 </script>
+<!-- Your script.js should be included AFTER these scripts -->
+<script src="script.js"></script>
     <title>My First Website</title>
     <style>
         body {
